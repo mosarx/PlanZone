@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "152003794034",
+    "project_id": "planzone-37b62",
+    "storage_bucket": "planzone-37b62.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152003794034:android:4845499a77aed949c31eeb",
+        "android_client_info": {
+          "package_name": "com.southpark.planzone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152003794034-nnd661rli7bjp2hbkk2c6qo3iik7mr2q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.southpark.planzone",
+            "certificate_hash": "a48b2cbdab5853743fb45303269084d5ac8e32f8"
+          }
+        },
+        {
+          "client_id": "152003794034-pu6rmf2pdvrdu5i0lvdrf7rctae0vob0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsuEGHvQ8LMVokK78SvXeInJBmpHEe6XY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152003794034-pu6rmf2pdvrdu5i0lvdrf7rctae0vob0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "152003794034-poa7h2sfeee5367u5usbgnrv10mmaaku.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.southpark.planzone"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,26 +4,34 @@
     "slug": "PlanZone",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/mura.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "scheme": "planzone",           // 👈 ajouté ici
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/images/urus.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FFFFFF"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.southpark.planzone"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/mura.png"
       },
+      "package": "com.southpark.planzone",
       "edgeToEdgeEnabled": true
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+    "extra": {
+      "eas": {
+        "projectId": "695cc0e8-acd1-4fbf-b756-4c802a92ce08"
+      }
+    },
+    "plugins": [
+      "expo-build-properties",
+      "expo-web-browser"
+    ]
   }
 }
