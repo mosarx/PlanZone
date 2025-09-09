@@ -19,11 +19,15 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/comer.png"
+        "foregroundImage": "./assets/images/comer.png",
+        "backgroundColor": "#FAB0B0"
       },
       "package": "com.southpark.planzone",
       "edgeToEdgeEnabled": true
     },
+    "assetBundlePatterns": [
+      "assets/images/*"
+    ],
     "extra": {
       "eas": {
         "projectId": "695cc0e8-acd1-4fbf-b756-4c802a92ce08"
