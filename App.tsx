@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { View, Image, StyleSheet, Alert, Dimensions } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import * as AuthSession from 'expo-auth-session';
-import { Alert } from 'react-native';
 
 import { initializeApp } from 'firebase/app';
 import {
@@ -19,7 +19,9 @@ import {
 
 import AuthScreen from './authscreen';
 
-// 🧊 Garde le splash visible pendant le chargement
+// ✅ Ajout Dimensions pour récupérer width
+const { width, height } = Dimensions.get('window');
+
 SplashScreen.preventAutoHideAsync();
 WebBrowser.maybeCompleteAuthSession();
 
@@ -37,15 +39,13 @@ const auth = getAuth(app);
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
   const [user, setUser] = useState<any>(null);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const redirectUri = AuthSession.makeRedirectUri({
-    scheme: 'planzone',
-  });
+  const isMorning = new Date().getHours() < 18;
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     clientId: '152003794034-d3q29jrvqmjtp4jm2gfrpmg18nn3cjg6.apps.googleusercontent.com',
@@ -55,18 +55,16 @@ export default function App() {
     redirectUri: AuthSession.makeRedirectUri({ native: 'planzone://redirect' })
   });
 
-  console.log("✅ REDIRECT URI:", redirectUri);
-
-  // 🧊 Splash screen
+  // Splash pendant 7 secondes
   useEffect(() => {
     const timer = setTimeout(async () => {
+      setShowSplash(false);
       setIsReady(true);
       await SplashScreen.hideAsync();
-    }, 3000);
+    }, 7000);
     return () => clearTimeout(timer);
   }, []);
 
-  // 🔄 Gérer la connexion / déconnexion de l'utilisateur
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (usr) => {
       setUser(usr);
@@ -74,7 +72,6 @@ export default function App() {
     return unsubscribe;
   }, []);
 
-  // ✅ Connexion via Google
   useEffect(() => {
     if (response?.type === 'success') {
       const { id_token } = response.params;
@@ -86,7 +83,6 @@ export default function App() {
     }
   }, [response]);
 
-  // ✅ Connexion avec email/mot de passe
   const handleLogin = async () => {
     if (!email || !password) {
       Alert.alert("Erreur", "Veuillez entrer un email et un mot de passe.");
@@ -104,7 +100,6 @@ export default function App() {
     }
   };
 
-  // ✅ Inscription avec email/mot de passe
   const handleSignUp = async () => {
     if (!email || !password) {
       Alert.alert("Erreur", "Veuillez entrer un email et un mot de passe.");
@@ -122,7 +117,6 @@ export default function App() {
     }
   };
 
-  // 🔐 Déconnexion
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -134,8 +128,20 @@ export default function App() {
     }
   };
 
-  if (!isReady) return null;
+  // ✅ Splash personnalisé intégré
+  if (showSplash) {
+    return (
+      <View style={[styles.splashContainer, { backgroundColor: isMorning ? '#FFFFFF' : '#FAB0B0' }]}>
+        <Image
+          source={isMorning ? require('./assets/images/elvira.png') : require('./assets/images/omerta.png')}
+          style={styles.splashImage}
+          resizeMode="contain"
+        />
+      </View>
+    );
+  }
 
+  // ✅ App principale
   return (
     <>
       <StatusBar style="dark" />
@@ -155,3 +161,17 @@ export default function App() {
     </>
   );
 }
+
+// 🎨 Styles du splash
+const styles = StyleSheet.create({
+  splashContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  splashImage: {
+    width: width * 0.6,      // ✅ 50% de la largeur de l’écran
+    height: width * 0.6,     // ✅ carré, donc même taille
+    resizeMode: 'contain',   // ✅ pour que l'image garde ses proportions
+  },
+});

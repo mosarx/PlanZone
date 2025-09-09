@@ -4,12 +4,12 @@
     "slug": "PlanZone",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/mura.png",
+    "icon": "./assets/images/comer.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "scheme": "planzone",           // 👈 ajouté ici
+    "scheme": "planzone",
     "splash": {
-      "image": "./assets/images/urus.png",
+      "image": "./assets/images/vida.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFFFFF"
     },
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/mura.png"
+        "foregroundImage": "./assets/images/comer.png"
       },
       "package": "com.southpark.planzone",
       "edgeToEdgeEnabled": true
@@ -31,7 +31,9 @@
     },
     "plugins": [
       "expo-build-properties",
-      "expo-web-browser"
-    ]
+      "expo-web-browser",
+      "expo-font"
+    ],
+    "owner": "mosarx"
   }
 }

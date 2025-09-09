@@ -9,7 +9,9 @@ import {
   Image,
 } from 'react-native';
 import { Feather, AntDesign, FontAwesome6 } from '@expo/vector-icons';
-import meduseLogo from './assets/images/meduse.png';
+import meduseLogo from './assets/images/medusa.png';
+
+import { useFonts } from 'expo-font';
 
 interface AuthScreenProps {
   user: any;
@@ -41,6 +43,13 @@ const AuthScreen: React.FC<AuthScreenProps> = ({
   const [isSignUp, setIsSignUp] = React.useState(true);
   const [termsAccepted, setTermsAccepted] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
+
+  // ✅ Chargement de la police
+  const [fontsLoaded] = useFonts({
+    'Jost-Medium': require('./assets/fonts/Jost-Medium.ttf'),
+  });
+
+  if (!fontsLoaded) return null;
 
   const toggleForm = () => {
     setIsSignUp(!isSignUp);
@@ -88,12 +97,20 @@ const AuthScreen: React.FC<AuthScreenProps> = ({
       <View style={styles.passwordContainer}>
         <TextInput
           placeholder="Enter your password"
-          style={styles.passwordInput}
+          style={[
+            styles.passwordInput,
+            !showPassword
+              ? { fontFamily: undefined } // ✅ font système pour bien afficher les points noirs
+              : { fontFamily: 'Jost-Medium' },
+          ]}
           secureTextEntry={!showPassword}
           value={password}
           onChangeText={setPassword}
         />
-        <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.iconButton}>
+        <TouchableOpacity
+          onPress={() => setShowPassword(!showPassword)}
+          style={styles.iconButton}
+        >
           <Feather name={showPassword ? 'eye-off' : 'eye'} size={20} color="#333" />
         </TouchableOpacity>
       </View>
@@ -129,7 +146,6 @@ const AuthScreen: React.FC<AuthScreenProps> = ({
         Or {isSignUp ? 'register' : 'log in'} with
       </Text>
 
-      {/* ✅ Social buttons */}
       <View style={styles.socialContainer}>
         <TouchableOpacity
           onPress={onGoogleLogin}
@@ -167,8 +183,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: 60,
-    height: 60,
+    width: 100, // ✅ plus grand que 60
+    height: 100,
     alignSelf: 'center',
     marginBottom: 30,
   },
@@ -177,10 +193,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 25,
     textAlign: 'left',
+    fontFamily: 'Jost-Medium',
   },
   label: {
     fontWeight: '700',
     marginBottom: 5,
+    fontFamily: 'Jost-Medium',
   },
   input: {
     borderWidth: 1,
@@ -190,6 +208,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     marginBottom: 15,
     fontSize: 16,
+    fontFamily: 'Jost-Medium',
   },
   passwordContainer: {
     flexDirection: 'row',
@@ -228,6 +247,7 @@ const styles = StyleSheet.create({
   },
   termsText: {
     fontWeight: '600',
+    fontFamily: 'Jost-Medium',
   },
   button: {
     backgroundColor: '#333',
@@ -243,11 +263,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 17,
     fontWeight: '600',
+    fontFamily: 'Jost-Medium',
   },
   orText: {
     textAlign: 'center',
     marginBottom: 20,
     color: '#666',
+    fontFamily: 'Jost-Medium',
   },
   socialContainer: {
     flexDirection: 'row',
@@ -260,11 +282,6 @@ const styles = StyleSheet.create({
     padding: 10,
     marginHorizontal: 8,
   },
-  socialLogo: {
-    width: 25,
-    height: 25,
-    resizeMode: 'contain',
-  },
   toggleContainer: {
     marginTop: 30,
     alignItems: 'center',
@@ -272,10 +289,12 @@ const styles = StyleSheet.create({
   toggleText: {
     color: '#666',
     fontSize: 14,
+    fontFamily: 'Jost-Medium',
   },
   toggleLink: {
     fontWeight: '700',
     color: '#000',
+    fontFamily: 'Jost-Medium',
   },
 });
 
