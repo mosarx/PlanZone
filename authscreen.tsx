@@ -43,7 +43,6 @@ const AuthScreen: React.FC<AuthScreenProps> = ({
   const [termsAccepted, setTermsAccepted] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
 
-  // ✅ Chargement de la police
   const [fontsLoaded] = useFonts({
     'Jost-Medium': require('./assets/fonts/Jost-Medium.ttf'),
   });
@@ -98,9 +97,7 @@ const AuthScreen: React.FC<AuthScreenProps> = ({
           placeholder="Enter your password"
           style={[
             styles.passwordInput,
-            !showPassword
-              ? { fontFamily: undefined } // ✅ font système pour bien afficher les points noirs
-              : { fontFamily: 'Jost-Medium' },
+            showPassword && { fontFamily: 'Jost-Medium' }, // ✅ affiche police SEULEMENT quand visible
           ]}
           secureTextEntry={!showPassword}
           value={password}
@@ -182,7 +179,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: 120, // ✅ plus grand que 60
+    width: 120,
     height: 120,
     alignSelf: 'center',
     marginBottom: 15,

@@ -8,9 +8,9 @@
     "userInterfaceStyle": "light",
     "scheme": "planzone",
     "splash": {
-      "image": "./assets/images/octa.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#FFFFFF"
+      "image": "./assets/images/bosar.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#FAB0B0"  // couleur de fond "safe area"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -43,4 +43,3 @@
     "owner": "mosarx"
   }
 }
-

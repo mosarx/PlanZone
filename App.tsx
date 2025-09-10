@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, StyleSheet, Alert, Dimensions } from 'react-native';
+import { Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import * as WebBrowser from 'expo-web-browser';
@@ -19,10 +19,6 @@ import {
 
 import AuthScreen from './authscreen';
 
-// ✅ Ajout Dimensions pour récupérer width
-const { width, height } = Dimensions.get('window');
-
-SplashScreen.preventAutoHideAsync();
 WebBrowser.maybeCompleteAuthSession();
 
 const firebaseConfig = {
@@ -38,31 +34,38 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 export default function App() {
-  const [isReady, setIsReady] = useState(false);
-  const [showSplash, setShowSplash] = useState(true);
+  const [appIsReady, setAppIsReady] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const isMorning = new Date().getHours() < 18;
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     clientId: '152003794034-d3q29jrvqmjtp4jm2gfrpmg18nn3cjg6.apps.googleusercontent.com',
     iosClientId: '152003794034-poa7h2sfeee5367u5usbgnrv10mmaaku.apps.googleusercontent.com',
     androidClientId: '152003794034-nnd661rli7bjp2hbkk2c6qo3iik7mr2q.apps.googleusercontent.com',
     scopes: ['profile', 'email'],
-    redirectUri: AuthSession.makeRedirectUri({ native: 'planzone://redirect' })
+    redirectUri: AuthSession.makeRedirectUri({ native: 'planzone://redirect' }),
   });
 
-  // Splash pendant 7 secondes
   useEffect(() => {
-    const timer = setTimeout(async () => {
-      setShowSplash(false);
-      setIsReady(true);
-      await SplashScreen.hideAsync();
-    }, 7000);
-    return () => clearTimeout(timer);
+    // Empêche le splash natif de disparaître automatiquement
+    SplashScreen.preventAutoHideAsync();
+
+    // Simule l'initialisation de l'app avant de cacher le splash
+    const prepare = async () => {
+      try {
+        // Ici tu peux charger des données, polices, etc.
+        await new Promise((resolve) => setTimeout(resolve, 7000)); // 7 secondes de splash
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+        await SplashScreen.hideAsync();
+      }
+    };
+
+    prepare();
   }, []);
 
   useEffect(() => {
@@ -128,20 +131,10 @@ export default function App() {
     }
   };
 
-  // ✅ Splash personnalisé intégré
-  if (showSplash) {
-    return (
-      <View style={[styles.splashContainer, { backgroundColor: isMorning ? '#FFFFFF' : '#FAB0B0' }]}>
-        <Image
-          source={isMorning ? require('./assets/images/omar.png') : require('./assets/images/bosar.png')}
-          style={styles.splashImage}
-          resizeMode="contain"
-        />
-      </View>
-    );
+  if (!appIsReady) {
+    return null; // Reste sur le splash natif
   }
 
-  // ✅ App principale
   return (
     <>
       <StatusBar style="dark" />
@@ -161,17 +154,3 @@ export default function App() {
     </>
   );
 }
-
-// 🎨 Styles du splash
-const styles = StyleSheet.create({
-  splashContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  splashImage: {
-    width: width * 0.6,      // ✅ 50% de la largeur de l’écran
-    height: width * 0.6,     // ✅ carré, donc même taille
-    resizeMode: 'contain',   // ✅ pour que l'image garde ses proportions
-  },
-});
