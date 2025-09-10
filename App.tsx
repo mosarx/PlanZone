@@ -133,7 +133,7 @@ export default function App() {
     return (
       <View style={[styles.splashContainer, { backgroundColor: isMorning ? '#FFFFFF' : '#FAB0B0' }]}>
         <Image
-          source={isMorning ? require('./assets/images/elvira.png') : require('./assets/images/omerta.png')}
+          source={isMorning ? require('./assets/images/omar.png') : require('./assets/images/bosar.png')}
           style={styles.splashImage}
           resizeMode="contain"
         />

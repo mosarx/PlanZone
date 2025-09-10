@@ -9,8 +9,7 @@ import {
   Image,
 } from 'react-native';
 import { Feather, AntDesign, FontAwesome6 } from '@expo/vector-icons';
-import meduseLogo from './assets/images/medusa.png';
-
+import oward from './assets/images/oward.png';
 import { useFonts } from 'expo-font';
 
 interface AuthScreenProps {
@@ -80,7 +79,7 @@ const AuthScreen: React.FC<AuthScreenProps> = ({
 
   return (
     <View style={styles.container}>
-      <Image source={meduseLogo} style={styles.logo} />
+      <Image source={oward} style={styles.logo} />
       <Text style={styles.title}>{isSignUp ? 'Sign up' : 'Log in'}</Text>
 
       <Text style={styles.label}>Email</Text>
@@ -183,10 +182,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: 100, // ✅ plus grand que 60
-    height: 100,
+    width: 120, // ✅ plus grand que 60
+    height: 120,
     alignSelf: 'center',
-    marginBottom: 30,
+    marginBottom: 15,
   },
   title: {
     fontSize: 28,

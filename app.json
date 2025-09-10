@@ -4,30 +4,31 @@
     "slug": "PlanZone",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/comer.png",
+    "icon": "./assets/images/otrac.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "scheme": "planzone",
     "splash": {
-      "image": "./assets/images/vida.png",
+      "image": "./assets/images/octa.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFFFFF"
     },
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.southpark.planzone"
+      "bundleIdentifier": "com.southpark.planzone",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/comer.png",
+        "foregroundImage": "./assets/images/otrac.png",
         "backgroundColor": "#FAB0B0"
       },
       "package": "com.southpark.planzone",
       "edgeToEdgeEnabled": true
-    },
-    "assetBundlePatterns": [
-      "assets/images/*"
-    ],
+    }, 
     "extra": {
       "eas": {
         "projectId": "695cc0e8-acd1-4fbf-b756-4c802a92ce08"
