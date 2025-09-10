@@ -1,27 +1,46 @@
 {
   "expo": {
     "name": "PlanZone",
-    "slug": "planzone",
+    "slug": "PlanZone",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/otrac.png",
     "userInterfaceStyle": "light",
+    "scheme": "planzone",
     "splash": {
       "image": "./assets/images/octa.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFFFFF"
     },
-    "assetBundlePatterns": ["**/*"],
-    "plugins": [
-      "expo-build-properties",
-      "expo-web-browser",
-      "expo-font"
+    "assetBundlePatterns": [
+      "**/*"
     ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.southpark.planzone",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/otrac.png",
+        "backgroundColor": "#FAB0B0"
+      },
+      "package": "com.southpark.planzone",
+      "edgeToEdgeEnabled": true
+    },
     "extra": {
       "eas": {
         "projectId": "695cc0e8-acd1-4fbf-b756-4c802a92ce08"
       }
     },
+    "plugins": [
+      "expo-build-properties",
+      "expo-web-browser",
+      "expo-font"
+    ],
     "owner": "mosarx"
   }
 }
+
